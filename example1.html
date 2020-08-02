@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>SukuSAT - Example 1</title>
+	<meta charset="utf-8">
+	<style type="text/css">body{margin:0;height:100vh;width:100vw;display:flex;justify-content:center;align-items:center;text-align:center;font-family:"Liberation Mono";background-color:#203759;color:#fff}</style>
+</head>
+<body>
+	<main><h1>SukuSAT - Example 1</h1><p><i>(Check JavaScript console)</i></p></main>
+</body>
+<script src="suku-sat-min.js"></script>
+<script type="text/javascript">
+
+// setting up a trivial DIMACS string
+let dimacsString = 
+	"p cnf 2 2\n" +
+	"1 0\n" +
+	"1 2 0"
+;
+
+// getting an object the SAT Solver will use in order to find (or not) a solution to the given clauses set
+let satClausesObj = dimacsStringToClauses(dimacsString);
+
+if(satClausesObj) {
+
+	// the function returns a boolean according to the satisfiability of the clauses set
+	let result = resolutionDPLL(satClausesObj);
+
+	if(result) {
+
+		// solution will be contained into an array of the global variable SATSOLVER_GLOBALS
+		console.table(SATSOLVER_GLOBALS.solution);
+
+	} else {
+		console.log("The set of clauses is unsatisfiable");
+	}
+
+} else {
+	console.log("DIMACS string not valid");
+}
+
+</script>
+</html>
